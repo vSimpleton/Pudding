@@ -16,14 +16,18 @@ import com.pomelo.pudding.R;
 
 public class AnimUtils {
 
-    // 实现抖动的动画
-    // 使用时只需调用：需要抖动的控件.startAnimation(anim);
+    /**
+     * 实现抖动的动画
+     * 使用时只需调用：需要抖动的控件.startAnimation(anim);
+     */
     public static Animation getShakeAnim(Context context) {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_shake);
         return animation;
     }
 
-    // 旋转动画（持续时间可自行设置）
+    /**
+     * 旋转动画（持续时间可自行设置）
+     */
     public static RotateAnimation doRotateAnimation(int dur) {
         RotateAnimation rotate = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         rotate.setInterpolator(new LinearInterpolator());
@@ -33,6 +37,9 @@ public class AnimUtils {
         return rotate;
     }
 
+    /**
+     * 实现透明度变化的动画
+     */
     public static AlphaAnimation getAlphaAnimation(float start, float end, int dur) {
         AlphaAnimation alpha = new AlphaAnimation(start, end);
         alpha.setInterpolator(new LinearInterpolator());

@@ -19,8 +19,6 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Vibrator;
 import android.renderscript.Allocation;
@@ -88,22 +86,6 @@ public class Utils {
     }
 
     /**
-     * 根据手机的分辨率从dp转为px
-     */
-    public static int dip2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
-
-    /**
-     * 根据手机的分辨率从px转为dp
-     */
-    public static int px2dip(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
-    }
-
-    /**
      * 根据720*1280的手机适配px值
      *
      * @param pxSrc 720P的px
@@ -115,36 +97,6 @@ public class Utils {
             pix = 1;
         }
         return pix;
-    }
-
-    /**
-     * 判断当前是否有网络
-     */
-    public static boolean hasNetwork(Context context) {
-        if (context == null) return false;
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = connectivityManager.getActiveNetworkInfo();
-        if (info != null) {
-            if (info.isAvailable() == true) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * 判断当前使用的网络是否是wifi
-     */
-    public static boolean isWifi(Context context) {
-        if (context == null) return false;
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = connectivityManager.getActiveNetworkInfo();
-        if (info != null) {
-            if (info.getType() == ConnectivityManager.TYPE_WIFI) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -301,8 +253,12 @@ public class Utils {
         if (color == 0) {
             return 0;
         }
-        if (degree < 0) degree = 0;
-        if (degree > 1) degree = 1;
+        if (degree < 0) {
+            degree = 0;
+        }
+        if (degree > 1) {
+            degree = 1;
+        }
         int red = Color.red(color);
         int green = Color.green(color);
         int blue = Color.blue(color);
@@ -617,7 +573,10 @@ public class Utils {
 
     private volatile static boolean sHasCheckAllScreen;
     private volatile static boolean sIsAllScreenDevice;
-    //判断是否是全面屏
+
+    /**
+     * 判断是否是全面屏
+     */
     public static boolean isAllScreenDevice(Context context) {
         if (sHasCheckAllScreen) {
             return sIsAllScreenDevice;

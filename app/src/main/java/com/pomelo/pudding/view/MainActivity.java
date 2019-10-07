@@ -7,7 +7,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pomelo.pudding.R;
-import com.pomelo.pudding.utils.Utils;
+import com.pomelo.pudding.utils.MeasureUtils;
+import com.pomelo.pudding.utils.NetWorkUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,10 +20,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tv = findViewById(R.id.tv);
+        MeasureUtils.setHeight(tv, 500);
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utils.shakePhone( MainActivity.this, 100, true);
+                NetWorkUtils.goSetting(MainActivity.this);
             }
         });
     }
