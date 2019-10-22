@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.pomelo.pudding.R;
+import com.pomelo.pudding.utils.Configure;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,8 +27,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Configure.setUserId(this, "123456");
 
         tv = findViewById(R.id.tv);
+        tv.setText(Configure.getUserId(this));
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

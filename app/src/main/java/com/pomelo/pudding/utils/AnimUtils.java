@@ -1,11 +1,18 @@
 package com.pomelo.pudding.utils;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+
+import androidx.annotation.FloatRange;
 
 import com.pomelo.pudding.R;
 
@@ -47,5 +54,94 @@ public class AnimUtils {
         alpha.setFillAfter(false);//动画执行完后是否停留在执行完的状态
         return alpha;
     }
+
+    /**
+     * 控件的点击效果（透明+缩小）
+     * @param rate
+     * @return
+     */
+    public static View.OnTouchListener getTouchBackListener(@FloatRange(from = 0f, to = 1.0f) final float rate) {
+
+        View.OnTouchListener mTouchListener = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(final View v, MotionEvent event) {
+
+                switch (event.getActionMasked()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        AnimatorSet set = new AnimatorSet();
+                        Animator animatorX = ObjectAnimator.ofFloat(v, "scaleX", 1.0f, rate);
+                        Animator animatorY = ObjectAnimator.ofFloat(v, "scaleY", 1.0f, rate);
+                        Animator animatorAlpha = ObjectAnimator.ofFloat(v, "alpha", 1.0f, rate * 2 / 3f);
+                        set.play(animatorX).with(animatorY).with(animatorAlpha);
+                        set.setDuration(100);
+                        set.start();
+                        break;
+                    }
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_OUTSIDE:
+                    case MotionEvent.ACTION_UP: {
+
+                        AnimatorSet set = new AnimatorSet();
+                        Animator animatorX = ObjectAnimator.ofFloat(v, "scaleX", v.getScaleX(), 1.0f);
+                        Animator animatorY = ObjectAnimator.ofFloat(v, "scaleY", v.getScaleY(), 1.0f);
+                        Animator animatorAlpha = ObjectAnimator.ofFloat(v, "alpha", v.getAlpha(), 1.0f);
+                        set.play(animatorX).with(animatorY).with(animatorAlpha);
+                        set.setDuration(200);
+                        set.start();
+
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                return false;
+            }
+        };
+        return mTouchListener;
+    }
+
+    /**
+     * 控件的点击效果（仅缩小）
+     * @param rate
+     * @return
+     */
+    public static View.OnTouchListener getScaleTouchListener(@FloatRange(from = 0f, to = 1.0f) final float rate) {
+
+        View.OnTouchListener mTouchListener = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(final View v, MotionEvent event) {
+
+                switch (event.getActionMasked()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        AnimatorSet set = new AnimatorSet();
+                        Animator animatorX = ObjectAnimator.ofFloat(v, "scaleX", 1.0f, rate);
+                        Animator animatorY = ObjectAnimator.ofFloat(v, "scaleY", 1.0f, rate);
+                        set.play(animatorX).with(animatorY);
+                        set.setDuration(100);
+                        set.start();
+                        break;
+                    }
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_OUTSIDE:
+                    case MotionEvent.ACTION_UP: {
+
+                        AnimatorSet set = new AnimatorSet();
+                        Animator animatorX = ObjectAnimator.ofFloat(v, "scaleX", v.getScaleX(), 1.0f);
+                        Animator animatorY = ObjectAnimator.ofFloat(v, "scaleY", v.getScaleY(), 1.0f);
+                        set.play(animatorX).with(animatorY);
+                        set.setDuration(200);
+                        set.start();
+
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                return false;
+            }
+        };
+        return mTouchListener;
+    }
+
 
 }

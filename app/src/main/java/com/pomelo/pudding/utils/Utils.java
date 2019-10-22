@@ -315,84 +315,6 @@ public class Utils {
         return mTouchListener;
     }
 
-    public static View.OnTouchListener getTouchBackListener(@FloatRange(from = 0f, to = 1.0f) final float rate) {
-
-        View.OnTouchListener mTouchListener = new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(final View v, MotionEvent event) {
-
-                switch (event.getActionMasked()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        AnimatorSet set = new AnimatorSet();
-                        Animator animatorX = ObjectAnimator.ofFloat(v, "scaleX", 1.0f, rate);
-                        Animator animatorY = ObjectAnimator.ofFloat(v, "scaleY", 1.0f, rate);
-                        Animator animatorAlpha = ObjectAnimator.ofFloat(v, "alpha", 1.0f, rate * 2 / 3f);
-                        set.play(animatorX).with(animatorY).with(animatorAlpha);
-                        set.setDuration(100);
-                        set.start();
-                        break;
-                    }
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_OUTSIDE:
-                    case MotionEvent.ACTION_UP: {
-
-                        AnimatorSet set = new AnimatorSet();
-                        Animator animatorX = ObjectAnimator.ofFloat(v, "scaleX", v.getScaleX(), 1.0f);
-                        Animator animatorY = ObjectAnimator.ofFloat(v, "scaleY", v.getScaleY(), 1.0f);
-                        Animator animatorAlpha = ObjectAnimator.ofFloat(v, "alpha", v.getAlpha(), 1.0f);
-                        set.play(animatorX).with(animatorY).with(animatorAlpha);
-                        set.setDuration(200);
-                        set.start();
-
-                        break;
-                    }
-                    default:
-                        break;
-                }
-                return false;
-            }
-        };
-        return mTouchListener;
-    }
-
-    public static View.OnTouchListener getScaleTouchListener(@FloatRange(from = 0f, to = 1.0f) final float rate) {
-
-        View.OnTouchListener mTouchListener = new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(final View v, MotionEvent event) {
-
-                switch (event.getActionMasked()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        AnimatorSet set = new AnimatorSet();
-                        Animator animatorX = ObjectAnimator.ofFloat(v, "scaleX", 1.0f, rate);
-                        Animator animatorY = ObjectAnimator.ofFloat(v, "scaleY", 1.0f, rate);
-                        set.play(animatorX).with(animatorY);
-                        set.setDuration(100);
-                        set.start();
-                        break;
-                    }
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_OUTSIDE:
-                    case MotionEvent.ACTION_UP: {
-
-                        AnimatorSet set = new AnimatorSet();
-                        Animator animatorX = ObjectAnimator.ofFloat(v, "scaleX", v.getScaleX(), 1.0f);
-                        Animator animatorY = ObjectAnimator.ofFloat(v, "scaleY", v.getScaleY(), 1.0f);
-                        set.play(animatorX).with(animatorY);
-                        set.setDuration(200);
-                        set.start();
-
-                        break;
-                    }
-                    default:
-                        break;
-                }
-                return false;
-            }
-        };
-        return mTouchListener;
-    }
-
     /**
      * 判断是否为gif
      */
@@ -571,42 +493,6 @@ public class Utils {
         }
         Pattern pattern = Pattern.compile("^\\d+$");
         return pattern.matcher(str).matches();
-    }
-
-    private volatile static boolean sHasCheckAllScreen;
-    private volatile static boolean sIsAllScreenDevice;
-
-    /**
-     * 判断是否是全面屏
-     */
-    public static boolean isAllScreenDevice(Context context) {
-        if (sHasCheckAllScreen) {
-            return sIsAllScreenDevice;
-        }
-        sHasCheckAllScreen = true;
-        sIsAllScreenDevice = false;
-        // 低于 API 21的，都不会是全面屏。。。
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return false;
-        }
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        if (windowManager != null) {
-            Display display = windowManager.getDefaultDisplay();
-            Point point = new Point();
-            display.getRealSize(point);
-            float width, height;
-            if (point.x < point.y) {
-                width = point.x;
-                height = point.y;
-            } else {
-                width = point.y;
-                height = point.x;
-            }
-            if (height / width >= 1.97f) {
-                sIsAllScreenDevice = true;
-            }
-        }
-        return sIsAllScreenDevice;
     }
 
 }

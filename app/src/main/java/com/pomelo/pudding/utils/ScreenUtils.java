@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import java.io.File;
@@ -21,6 +25,9 @@ import java.io.FileOutputStream;
  * 屏幕工具类，涉及到屏幕宽度、高度、密度比、(像素、dp、sp)之间的转换等。
  */
 public class ScreenUtils {
+
+    private volatile static boolean sHasCheckAllScreen;
+    private volatile static boolean sIsAllScreenDevice;
 
     /**
      * 获取DisplayMetrics对象
@@ -67,7 +74,7 @@ public class ScreenUtils {
     /**
      * dip转换为px大小
      */
-    public static int dp2px(Context context, int dpValue) {
+    public static int dp2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
@@ -75,7 +82,7 @@ public class ScreenUtils {
     /**
      * px转换为dp值
      */
-    public static int px2dp(Context context, int pxValue) {
+    public static int px2dp(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
@@ -83,7 +90,7 @@ public class ScreenUtils {
     /**
      * sp转换为px
      */
-    public static int sp2px(Context context, int spValue) {
+    public static int sp2px(Context context, float spValue) {
         final float scale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * scale + 0.5f);
     }
@@ -91,9 +98,53 @@ public class ScreenUtils {
     /**
      * px转换为sp
      */
-    public static int px2sp(Context context, int pxValue) {
+    public static int px2sp(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / scale + 0.5f);
+    }
+
+    /**
+     * 设置某个View的margin
+     *
+     * @param view   需要设置的view
+     * @param isDp   需要设置的数值是否为DP
+     * @param left   左边距
+     * @param right  右边距
+     * @param top    上边距
+     * @param bottom 下边距
+     * @return
+     */
+    public static ViewGroup.LayoutParams setViewMargin(Context context, View view, boolean isDp, int left, int right, int top, int bottom) {
+        if (view == null) {
+            return null;
+        }
+
+        int leftPx = left;
+        int rightPx = right;
+        int topPx = top;
+        int bottomPx = bottom;
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        ViewGroup.MarginLayoutParams marginParams = null;
+        //获取view的margin设置参数
+        if (params instanceof ViewGroup.MarginLayoutParams) {
+            marginParams = (ViewGroup.MarginLayoutParams) params;
+        } else {
+            //不存在时创建一个新的参数
+            marginParams = new ViewGroup.MarginLayoutParams(params);
+        }
+
+        //根据DP与PX转换计算值
+        if (isDp) {
+            leftPx = dp2px(context, left);
+            rightPx = dp2px(context, right);
+            topPx = dp2px(context, top);
+            bottomPx = dp2px(context, bottom);
+        }
+        //设置margin
+        marginParams.setMargins(leftPx, topPx, rightPx, bottomPx);
+        view.setLayoutParams(marginParams);
+        view.requestLayout();
+        return marginParams;
     }
 
     /**
@@ -178,6 +229,39 @@ public class ScreenUtils {
         }
         // 通知图库更新
         context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + "/sdcard/namecard/")));
+    }
+
+    /**
+     * 判断是否是全面屏
+     */
+    public static boolean isAllScreenDevice(Context context) {
+        if (sHasCheckAllScreen) {
+            return sIsAllScreenDevice;
+        }
+        sHasCheckAllScreen = true;
+        sIsAllScreenDevice = false;
+        // 低于 API 21的，都不会是全面屏。。。
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            return false;
+        }
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        if (windowManager != null) {
+            Display display = windowManager.getDefaultDisplay();
+            Point point = new Point();
+            display.getRealSize(point);
+            float width, height;
+            if (point.x < point.y) {
+                width = point.x;
+                height = point.y;
+            } else {
+                width = point.y;
+                height = point.x;
+            }
+            if (height / width >= 1.97f) {
+                sIsAllScreenDevice = true;
+            }
+        }
+        return sIsAllScreenDevice;
     }
 
 }
