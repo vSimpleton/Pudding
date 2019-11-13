@@ -17,6 +17,7 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.pomelo.pudding.R;
 import com.pomelo.pudding.utils.Configure;
+import com.pomelo.pudding.utils.DialogUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, DialogActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Pudding</string>
+
+    <string name="dialog_sift_content">高品质的、真实的原创生活记录都值得被推荐，优质的Vlog视频与暖心的声音动态更容易成为精选哦！</string>
+    <string name="dialog_sift_content_two">愿你在21玩的愉快：）</string>
+    <string name="dialog_sift_confirm">我知道了</string>
 </resources>

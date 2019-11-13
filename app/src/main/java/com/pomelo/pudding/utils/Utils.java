@@ -291,30 +291,6 @@ public class Utils {
         }
     }
 
-    public static View.OnTouchListener getAlphaTouchListener() {
-        View.OnTouchListener mTouchListener = new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getActionMasked()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        v.setAlpha(0.5f);
-                        break;
-                    }
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_OUTSIDE:
-                    case MotionEvent.ACTION_UP: {
-                        v.setAlpha(1f);
-                        break;
-                    }
-                    default:
-                        break;
-                }
-                return false;
-            }
-        };
-        return mTouchListener;
-    }
-
     /**
      * 判断是否为gif
      */
@@ -493,6 +469,16 @@ public class Utils {
         }
         Pattern pattern = Pattern.compile("^\\d+$");
         return pattern.matcher(str).matches();
+    }
+
+    public static void darkenBackground(Float bgcolor, Context mContext) {
+        WindowManager.LayoutParams lp = ((Activity) mContext).getWindow().getAttributes();
+        lp.alpha = bgcolor;
+        ((Activity) mContext).getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        ((Activity) mContext).getWindow().setAttributes(lp);
+        if (bgcolor == 1.0f) {
+            ((Activity) mContext).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
     }
 
 }

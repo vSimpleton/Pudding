@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/llDialog"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_sift_dialog_bg"
+        android:orientation="vertical">
+
+        <com.pomelo.pudding.view.OvalImageView
+            android:id="@+id/ivHeader"
+            android:layout_width="match_parent"
+            android:layout_height="132dp"
+            android:scaleType="fitXY"/>
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:lineSpacingExtra="6dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
+            android:text=""
+            android:textColor="#4c4c4c"
+            android:textSize="14dp"/>
+
+        <TextView
+            android:id="@+id/tvContentTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:lineSpacingExtra="3dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
+            android:text=""
+            android:textColor="#4c4c4c"
+            android:textSize="14dp"/>
+
+        <RelativeLayout
+            android:id="@+id/rlConfirm"
+            android:layout_width="232dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="15.5dp"
+            android:background="@drawable/shape_dialog_sift_confirm_bg"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/tvConfirmText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="知道了"
+                android:textColor="#ffffff"
+                android:textSize="14dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlCancel"
+            android:layout_width="232dp"
+            android:layout_height="43dp"
+            android:layout_marginBottom="5.5dp"
+            android:layout_gravity="center"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="取消"
+                android:textColor="#808080"
+                android:textSize="14dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

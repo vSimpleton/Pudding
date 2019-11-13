@@ -100,6 +100,34 @@ public class AnimUtils {
         return mTouchListener;
     }
 
+    public static View.OnTouchListener getAlphaTouchListener() {
+        View.OnTouchListener mTouchListener = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getActionMasked()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        v.setAlpha(0.5f);
+                        break;
+                    }
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_OUTSIDE:
+                    case MotionEvent.ACTION_UP: {
+                        v.setAlpha(1f);
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                return false;
+            }
+        };
+        return mTouchListener;
+    }
+
+    public static View.OnTouchListener getScaleTouchListener() {
+        return getScaleTouchListener(0.9f);
+    }
+
     /**
      * 控件的点击效果（仅缩小）
      * @param rate

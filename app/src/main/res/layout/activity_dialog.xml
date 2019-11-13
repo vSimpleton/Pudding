@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/baseLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/llMainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="306dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shape_add_virtual_tips"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp">
+
+            <ImageView
+                android:id="@+id/ivWhatIsLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/llLevel"
+                android:layout_alignTop="@id/llLevel"
+                android:layout_marginLeft="1dp"
+                android:layout_toRightOf="@id/llLevel"
+                android:src="@drawable/what_is_vip_icon"/>
+
+            <LinearLayout
+                android:id="@+id/llLevel"
+                android:layout_width="125dp"
+                android:layout_height="53dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/shape_level_bgk"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvCurLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="7dp"
+                    android:includeFontPadding="false"
+                    android:text="LV.0"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="我的普通等级"
+                    android:textColor="#e6ffffff"
+                    android:textSize="12dp"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:includeFontPadding="false"
+            android:text="升级到下一级还需要完成"
+            android:textColor="#8a8a8a"
+            android:layout_gravity="center_horizontal"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvLikeCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="0"
+                    android:textColor="#cdcdcd"
+                    android:textSize="28dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginTop="2dp"
+                    android:drawableLeft="@drawable/level_like_icon"
+                    android:drawablePadding="3dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="主动点赞"
+                    android:textColor="#8a8a8a"
+                    android:textSize="12dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvSweetCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="0"
+                    android:textColor="#cdcdcd"
+                    android:textSize="28dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="2dp"
+                    android:drawableLeft="@drawable/level_sweet_icon"
+                    android:drawablePadding="3dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="亲密度"
+                    android:textColor="#8a8a8a"
+                    android:textSize="12dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvBeLikeCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="0"
+                    android:textColor="#cdcdcd"
+                    android:textSize="28dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="2dp"
+                    android:drawableLeft="@drawable/level_like_icon"
+                    android:drawablePadding="3dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="被点赞"
+                    android:textColor="#8a8a8a"
+                    android:textSize="12dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvConfirm"
+            android:layout_width="200dp"
+            android:layout_height="49dp"
+            android:background="@drawable/shape_filter_check_blue_bgk"
+            android:text="我知道了"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="16dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="35dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
