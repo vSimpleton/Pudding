@@ -11,13 +11,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
     <com.pomelo.pudding.view.RoundedImageView
         android:id="@+id/iv"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:src="@drawable/image_test"
-        app:oval="true"/>
+        app:oval="true"
+        android:visibility="gone"/>
+
+    <com.pomelo.pudding.view.CustomFlowLayout
+        android:id="@+id/flowLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"/>
 
 </RelativeLayout>

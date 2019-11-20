@@ -1,9 +1,9 @@
 package com.pomelo.pudding.view;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +23,13 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView tv;
     private ImageView iv;
+    private CustomFlowLayout mFlowLayout;
+
+    private String[] datas = new String[]{
+            "奥利奥", "奥利奥奥利奥", "蒙娜丽莎", "蒙娜丽莎的微笑", "向日葵"
+            , "规划", "哈哈哈哈哈哈哈", "啦啦啦啦", "杨利伟", "北理工", "规划",
+            "哈哈哈哈哈哈哈", "啦啦啦啦", "杨利伟", "北理工", "蒙娜丽莎", "蒙娜丽莎的微笑", "向日葵"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +37,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Configure.setUserId(this, "123456");
 
+        mFlowLayout = findViewById(R.id.flowLayout);
         tv = findViewById(R.id.tv);
         tv.setText(Configure.getUserId(this));
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, DialogActivity.class);
-                startActivity(intent);
+                DialogUtils.showSiftDialog(MainActivity.this, tv,null);
             }
         });
 
@@ -52,6 +59,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        for (int i = 0; i < datas.length; i++) {
+            View view = LayoutInflater.from(this).inflate(R.layout.item, mFlowLayout,false);
+            TextView textView = view.findViewById(R.id.tv);
+            textView.setText(datas[i]);
+            mFlowLayout.addView(view);
+        }
 
     }
 

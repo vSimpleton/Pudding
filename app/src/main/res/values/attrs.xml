@@ -8,4 +8,14 @@
         <attr name="oval" format="boolean" />
         <attr name="android:scaleType" />
     </declare-styleable>
+
+    <!--自定义四个角不同度数的圆角矩形-->
+    <declare-styleable name="OvalImageView">
+        <attr name="radius" format="dimension"/>
+        <attr name="left_top_radius" format="dimension"/>
+        <attr name="right_top_radius" format="dimension"/>
+        <attr name="right_bottom_radius" format="dimension"/>
+        <attr name="left_bottom_radius" format="dimension"/>
+    </declare-styleable>
+
 </resources>
