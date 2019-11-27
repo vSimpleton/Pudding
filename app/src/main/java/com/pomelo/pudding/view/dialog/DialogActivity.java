@@ -1,4 +1,4 @@
-package com.pomelo.pudding.view;
+package com.pomelo.pudding.view.dialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,11 +20,7 @@ import android.widget.TextView;
 
 import com.pomelo.pudding.R;
 import com.pomelo.pudding.utils.AnimUtils;
-import com.pomelo.pudding.utils.PageCacheUtils;
 import com.pomelo.pudding.utils.StatusBarUtils;
-import com.pomelo.pudding.utils.Utils;
-
-import java.util.HashMap;
 
 /**
  * 弹窗形式的activity

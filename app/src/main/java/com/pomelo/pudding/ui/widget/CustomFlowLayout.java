@@ -1,12 +1,9 @@
-package com.pomelo.pudding.view;
+package com.pomelo.pudding.ui.widget;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.pomelo.pudding.R;
 
 import java.util.ArrayList;
 import java.util.List;

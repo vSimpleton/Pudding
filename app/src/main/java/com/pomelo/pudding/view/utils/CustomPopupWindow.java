@@ -1,4 +1,4 @@
-package com.pomelo.pudding.view;
+package com.pomelo.pudding.view.utils;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -25,8 +25,8 @@ import com.pomelo.pudding.utils.Utils;
 
 public class CustomPopupWindow implements OnDialogDismissListener {
 
-    Context mContext;
-    PopupWindow mWindow;
+    private Context mContext;
+    private PopupWindow mWindow;
     private static boolean IsShow;
     private float bgk_color_depth = 0.4f;
 
@@ -106,7 +106,6 @@ public class CustomPopupWindow implements OnDialogDismissListener {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float value = (float) animation.getAnimatedValue();
-                Log.i("onAnimationUpdate", "value:" + value);
                 Utils.darkenBackground(value, mContext);
             }
         });

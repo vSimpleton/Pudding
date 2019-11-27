@@ -12,7 +12,7 @@
         android:background="@drawable/shape_sift_dialog_bg"
         android:orientation="vertical">
 
-        <com.pomelo.pudding.view.OvalImageView
+        <com.pomelo.pudding.ui.widget.OvalImageView
             android:id="@+id/ivHeader"
             android:layout_width="match_parent"
             android:layout_height="132dp"

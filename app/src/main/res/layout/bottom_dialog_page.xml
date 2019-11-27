@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/back"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4b000000">
+
+    <RelativeLayout
+        android:id="@+id/bottom_main_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#e6e6e6">
+
+        <LinearLayout
+            android:id="@+id/bottom_custom_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_below="@id/bottom_custom_container"
+            android:background="#f5f5f5"/>
+
+        <TextView
+            android:id="@+id/bottom_dialog_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@id/divider"
+            android:background="@drawable/popup_item_bgk_selector"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/popup_cancel_btn_txt_selector"
+            android:textSize="16dp"/>
+
+    </RelativeLayout>
+</RelativeLayout>

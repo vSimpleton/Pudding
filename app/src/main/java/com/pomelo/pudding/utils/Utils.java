@@ -1,8 +1,5 @@
 package com.pomelo.pudding.utils;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Service;
@@ -10,10 +7,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.PaintFlagsDrawFilter;
-import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
@@ -21,7 +15,6 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.os.Vibrator;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
@@ -35,15 +28,12 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
 import android.view.Display;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
-
-import androidx.annotation.FloatRange;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -93,8 +83,16 @@ public class Utils {
      * @param pxSrc 720P的px
      * @return
      */
-    public static int getRealPixel(int pxSrc) {
+    public static int getRealPixel2(int pxSrc) {
         int pix = (int) (pxSrc * sScreenW / sRelativeScreenW);
+        if (pxSrc == 1 && pix == 0) {
+            pix = 1;
+        }
+        return pix;
+    }
+
+    public static int getRealPixel(int pxSrc) {
+        int pix = (int) (pxSrc * sDensity / 2.0);
         if (pxSrc == 1 && pix == 0) {
             pix = 1;
         }
@@ -471,14 +469,77 @@ public class Utils {
         return pattern.matcher(str).matches();
     }
 
-    public static void darkenBackground(Float bgcolor, Context mContext) {
+    public static void darkenBackground(Float bgColor, Context mContext) {
         WindowManager.LayoutParams lp = ((Activity) mContext).getWindow().getAttributes();
-        lp.alpha = bgcolor;
+        lp.alpha = bgColor;
         ((Activity) mContext).getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         ((Activity) mContext).getWindow().setAttributes(lp);
-        if (bgcolor == 1.0f) {
+        if (bgColor == 1.0f) {
             ((Activity) mContext).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         }
+    }
+
+    /**
+     * 60分钟内的显示：xx分钟前
+     * 一天内的显示：xx小时前
+     * 昨天的显示：昨天 xx:xx
+     * 前天的显示：前天 xx:xx
+     * 同一年的显示：MM-dd
+     * 不同年的显示：yyyy-MM-dd
+     *
+     * @param time 时间戳
+     * @return
+     */
+    public static String getPublishTime2(int time) {
+
+        String msg;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd");// 指定时间格式
+        long reset = time * 1000L; // 获取指定时间的毫秒数
+        long nowTime = System.currentTimeMillis(); // 获取当前时间的毫秒数
+        long dateDiff = nowTime - reset;
+        long dateTemp1 = dateDiff / 1000; // 秒
+        long dateTemp2 = dateTemp1 / 60; // 分钟
+        long dateTemp3 = dateTemp2 / 60; // 小时
+
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTimeInMillis(reset);
+        calendar1.set(Calendar.HOUR, 0);
+        calendar1.set(Calendar.MINUTE, 0);
+        calendar1.set(Calendar.SECOND, 0);
+        long time1 = calendar1.getTimeInMillis();
+
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTimeInMillis(nowTime);
+        calendar2.set(Calendar.HOUR, 0);
+        calendar2.set(Calendar.MINUTE, 0);
+        calendar2.set(Calendar.SECOND, 0);
+        long time2 = calendar2.getTimeInMillis();
+
+        int between_days = Integer.parseInt(String.valueOf((time2 - time1) / (1000 * 3600 * 24)));
+        sdf.applyPattern("yyyy年");
+        String year1 = sdf.format(new Date(reset));
+        String year2 = sdf.format(new Date(nowTime));
+
+        if (dateTemp1 < 3600L) {
+            msg = dateTemp2 + "分钟前";
+        } else if (dateTemp1 < 3600L * 24L) {
+            msg = dateTemp3 + "小时前";
+        } else if (between_days == 1) {
+            sdf.applyPattern("HH:mm");
+            msg = "昨天 " + sdf.format(new Date(reset));
+        } else if (between_days == 2) {
+            sdf.applyPattern("HH:mm");
+            msg = "前天 " + sdf.format(new Date(reset));
+        } else {
+            //年份不同显示年份
+            if (!year1.equals(year2)) {
+                sdf.applyPattern("yyyy年MM月dd日");
+            } else {
+                sdf.applyPattern("MM月dd日");
+            }
+            msg = sdf.format(new Date(reset));
+        }
+        return msg;
     }
 
 }

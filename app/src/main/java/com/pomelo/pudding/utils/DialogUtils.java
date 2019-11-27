@@ -4,11 +4,12 @@ import android.content.Context;
 import android.view.View;
 
 import com.pomelo.pudding.R;
-import com.pomelo.pudding.view.CustomPopupWindow;
-import com.pomelo.pudding.view.SiftDialogView;
+import com.pomelo.pudding.view.utils.CustomPopupWindow;
+import com.pomelo.pudding.view.dialog.SiftDialogView;
 
 /**
  * Created by Sherry on 2019/11/4
+ * 弹框工具类
  */
 
 public class DialogUtils {

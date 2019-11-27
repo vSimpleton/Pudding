@@ -1,4 +1,4 @@
-package com.pomelo.pudding.view;
+package com.pomelo.pudding.ui.widget;
 
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;

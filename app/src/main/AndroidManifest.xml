@@ -17,10 +17,10 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".view.DialogActivity"
+            android:name=".view.dialog.DialogActivity"
             android:theme="@style/NoTitleTranslucentTheme"/>
 
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -6,4 +6,6 @@
     <color name="social_app_main_color">#b8a5f2</color>
 
     <color name="activity_mask_bgk_color">#99000000</color>
+    <color name="item_normal_color">#ffffffff</color>
+    <color name="item_click_color">#80f0f0f0</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.pomelo.pudding.view;
+package com.pomelo.pudding.view.dialog;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.pomelo.pudding.R;
 import com.pomelo.pudding.utils.AnimUtils;
 import com.pomelo.pudding.utils.Utils;
+import com.pomelo.pudding.view.utils.OnDialogDismissListener;
+import com.pomelo.pudding.view.utils.ViewActionCallBack;
 
 /**
  * Created by Sherry on 2019/11/4
