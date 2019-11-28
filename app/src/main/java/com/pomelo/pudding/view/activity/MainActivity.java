@@ -3,6 +3,7 @@ package com.pomelo.pudding.view.activity;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,16 +18,20 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.pomelo.pudding.R;
+import com.pomelo.pudding.mvp.bean.DailyInfo;
+import com.pomelo.pudding.mvp.DailyContract;
+import com.pomelo.pudding.mvp.DailyPresenter;
 import com.pomelo.pudding.ui.widget.BottomPopupWindow;
 import com.pomelo.pudding.ui.widget.CustomFlowLayout;
 import com.pomelo.pudding.utils.Configure;
 import com.pomelo.pudding.utils.DialogUtils;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, DailyContract.UserInfoView {
 
     private TextView tv;
     private ImageView iv;
     private CustomFlowLayout mFlowLayout;
+    private DailyPresenter mPresenter;
 
     private String[] datas = new String[]{
             "奥利奥", "奥利奥奥利奥", "蒙娜丽莎", "蒙娜丽莎的微笑", "向日葵"
@@ -38,45 +43,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Configure.setUserId(this, "123456");
 
+        initView();
+        initListener();
+        initData();
+        initPresenter();
+
+    }
+
+    private void initView() {
         mFlowLayout = findViewById(R.id.flowLayout);
         tv = findViewById(R.id.tv);
-        tv.setText(Configure.getUserId(this));
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogUtils.showSiftDialog(MainActivity.this, tv,null);
-            }
-        });
-
         iv = findViewById(R.id.iv);
+    }
+
+    private void initListener() {
         iv.setOnClickListener(this);
+        tv.setOnClickListener(this);
+    }
 
-        Glide.with(this).asBitmap().load(R.drawable.image_test).into(new CustomTarget<Bitmap>() {
-            @Override
-            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-
-            }
-
-            @Override
-            public void onLoadCleared(@Nullable Drawable placeholder) {
-
-            }
-        });
-
+    private void initData() {
+        Configure.setUserId(this, "123456");
+        tv.setText(Configure.getUserId(this));
         for (int i = 0; i < datas.length; i++) {
-            View view = LayoutInflater.from(this).inflate(R.layout.item, mFlowLayout,false);
+            View view = LayoutInflater.from(this).inflate(R.layout.item, mFlowLayout, false);
             TextView textView = view.findViewById(R.id.tv);
             textView.setText(datas[i]);
             mFlowLayout.addView(view);
         }
+    }
+
+    private void initPresenter() {
+        mPresenter = new DailyPresenter(this);
+        mPresenter.attachView(this);
 
     }
 
     @Override
     public void onClick(View v) {
         if (v == iv) {
+            mPresenter.getDaily();
+        } else if (v == tv) {
             final BottomPopupWindow popupWindow = new BottomPopupWindow(this);
             popupWindow.addCustomBtn("常见问题", false, new View.OnClickListener() {
                 @Override
@@ -93,8 +100,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     popupWindow.dismiss();
                 }
             });
-
             popupWindow.show(iv);
         }
+    }
+
+    @Override
+    public void getDailySuccess(DailyInfo dailyInfo) {
+        Log.e("youzi", "content: " + dailyInfo.getContent());
+    }
+
+    @Override
+    public void getDailyError(String result) {
+        Log.e("youzi", "error: " + result);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
     }
 }
