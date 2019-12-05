@@ -1,7 +1,5 @@
 package com.pomelo.pudding.view.activity;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,14 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.pomelo.pudding.R;
 import com.pomelo.pudding.mvp.bean.DailyInfo;
 import com.pomelo.pudding.mvp.DailyContract;
@@ -24,7 +15,6 @@ import com.pomelo.pudding.mvp.DailyPresenter;
 import com.pomelo.pudding.ui.widget.BottomPopupWindow;
 import com.pomelo.pudding.ui.widget.CustomFlowLayout;
 import com.pomelo.pudding.utils.Configure;
-import com.pomelo.pudding.utils.DialogUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, DailyContract.UserInfoView {
 

@@ -28,4 +28,44 @@
         android:padding="20dp"
         android:layout_below="@+id/iv"/>
 
+    <RadioGroup
+        android:id="@+id/rgSex"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp">
+
+        <com.pomelo.pudding.ui.widget.CustomRadioButton
+            android:id="@+id/rbBoy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/register_sex_boy_bg"
+            android:button="@null"
+            android:drawableLeft="@drawable/register_boy_selector"
+            android:drawablePadding="3dp"
+            android:gravity="center"
+            android:text="男生"
+            android:textColor="@color/sex_boy_selector"
+            android:textSize="17dp" />
+
+        <com.pomelo.pudding.ui.widget.CustomRadioButton
+            android:id="@+id/rbGirl"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/register_sex_girl_bg"
+            android:button="@null"
+            android:drawableLeft="@drawable/register_girl_selector"
+            android:drawablePadding="3dp"
+            android:gravity="center"
+            android:text="女生"
+            android:textColor="@color/sex_boy_selector"
+            android:textSize="17dp" />
+
+    </RadioGroup>
+
 </RelativeLayout>
