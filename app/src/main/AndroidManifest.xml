@@ -15,19 +15,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <activity
-            android:name=".view.dialog.DialogActivity"
-            android:theme="@style/NoTitleTranslucentTheme"/>
-
-        <activity android:name=".view.activity.MainActivity">
+        <activity android:name=".view.activity.TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity
+            android:name=".view.dialog.DialogActivity"
+            android:theme="@style/NoTitleTranslucentTheme" />
+
+        <activity android:name=".view.activity.MainActivity">
+
+        </activity>
+
+    </application>
 
 </manifest>
