@@ -27,9 +27,22 @@
             android:name=".view.dialog.DialogActivity"
             android:theme="@style/NoTitleTranslucentTheme" />
 
-        <activity android:name=".view.activity.MainActivity">
+        <activity android:name=".view.activity.MainActivity"/>
 
-        </activity>
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
     </application>
 

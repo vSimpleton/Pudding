@@ -36,7 +36,7 @@ dependencies {
     //RxJava
     implementation 'io.reactivex.rxjava2:rxjava:2.2.3'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     //ConverterFactory的Gson依赖包
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     //ConverterFactory的String依赖包
@@ -45,4 +45,8 @@ dependencies {
 
     //alipay
     implementation (name: 'alipaySdk-15.7.4-20200228192259', ext: 'aar')
+
+    //WeChat
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.5.8'
+
 }
