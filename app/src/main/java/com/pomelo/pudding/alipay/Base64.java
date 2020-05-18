@@ -1,4 +1,4 @@
-package com.pomelo.pudding.pay;
+package com.pomelo.pudding.alipay;
 
 public final class Base64 {
 

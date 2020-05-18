@@ -35,8 +35,8 @@ public class CustomPopupWindow implements OnDialogDismissListener {
     }
 
     public void dismiss() {
-        GradientDrawable tagBg = (GradientDrawable) mContext.getResources().getDrawable(R.drawable.shape_dialog_confirm_bgk);
-        tagBg.setColor(mContext.getResources().getColor(R.color.social_app_main_color));
+//        GradientDrawable tagBg = (GradientDrawable) mContext.getResources().getDrawable(R.drawable.shape_dialog_confirm_bgk);
+//        tagBg.setColor(mContext.getResources().getColor(R.color.social_app_main_color));
         if (mWindow != null && !checkActivity()) {
             mWindow.dismiss();
         }

@@ -1,4 +1,4 @@
-package com.pomelo.pudding.pay;
+package com.pomelo.pudding.alipay;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

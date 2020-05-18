@@ -56,7 +56,7 @@ public class AnimUtils {
     }
 
     /**
-     * 控件的点击效果（透明+缩小）
+     * 控件的点击效果（透明+缩小）---适用于按钮
      * @param rate
      * @return
      */
@@ -100,6 +100,10 @@ public class AnimUtils {
         return mTouchListener;
     }
 
+    /**
+     * 仅改变透明度---适用于item的点击效果
+     * @return
+     */
     public static View.OnTouchListener getAlphaTouchListener() {
         View.OnTouchListener mTouchListener = new View.OnTouchListener() {
             @Override

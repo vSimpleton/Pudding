@@ -53,7 +53,7 @@ public class SharePreferenceUtils {
      * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
      */
     public static Object get(Context context, String key, Object defaultObject) {
-        // TODO: 2018/8/22 MODE_MULTI_PROCESS已被弃用，尽快寻找替代方法实现与im推送service通讯
+        // TODO: MODE_MULTI_PROCESS已被弃用，尽快寻找替代方法实现
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_MULTI_PROCESS);
         if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
