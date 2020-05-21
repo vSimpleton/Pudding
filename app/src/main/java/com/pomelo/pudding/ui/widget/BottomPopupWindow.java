@@ -37,6 +37,7 @@ public class BottomPopupWindow {
     private PopupWindow mWindow;
     private TextView mCancel;
     private static boolean isShow = false;
+    private float bgk_color_depth = 0.6f;
 
     public BottomPopupWindow(Context context) {
         mContext = context;
@@ -202,7 +203,7 @@ public class BottomPopupWindow {
                     mDismissListener.onDismiss();
                 }
                 isShow = false;
-                doBackgroundAni(false);
+//                doBackgroundAni(false);
             }
         });
     }
@@ -214,11 +215,11 @@ public class BottomPopupWindow {
     private void doBackgroundAni(boolean isIn) {
         ValueAnimator valueAni;
         if (isIn) {
-            valueAni = ObjectAnimator.ofFloat(1f, 0.4f);
+            valueAni = ObjectAnimator.ofFloat(0f, bgk_color_depth);
             valueAni.setDuration(300);
         } else {
-            valueAni = ObjectAnimator.ofFloat(0.4f, 1.0f);
-            valueAni.setDuration(400);
+            valueAni = ObjectAnimator.ofFloat(bgk_color_depth, 0f);
+            valueAni.setDuration(300);
         }
 
         valueAni.setInterpolator(new LinearInterpolator());
@@ -226,7 +227,7 @@ public class BottomPopupWindow {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float value = (float) animation.getAnimatedValue();
-                Utils.darkenBackground(value, mContext);
+                Utils.darkenBackground(value, mWindow);
             }
         });
         valueAni.start();
