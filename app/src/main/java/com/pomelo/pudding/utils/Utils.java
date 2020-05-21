@@ -15,6 +15,7 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Vibrator;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
@@ -31,6 +32,10 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+
+import androidx.annotation.NonNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -476,6 +481,39 @@ public class Utils {
         ((Activity) mContext).getWindow().setAttributes(lp);
         if (bgColor == 1.0f) {
             ((Activity) mContext).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
+    }
+
+    /**
+     * 解决直接设置 WindowManager.LayoutParams#alpha 导致闪屏或者 Activity 透明度异常的情况
+     * 注意：禁止在 popupWindow.dismiss 时调用
+     *
+     * @param bgColor     设置给{@link WindowManager.LayoutParams#dimAmount}的值
+     * @param popupWindow 需要设置底层变灰的popupWindow
+     */
+    public static void darkenBackground(float bgColor, @NonNull PopupWindow popupWindow) {
+        // https://stackoverflow.com/questions/35874001/dim-the-background-using-popupwindow-in-android
+        View container;
+        if (popupWindow.getBackground() == null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                container = (View) popupWindow.getContentView().getParent();
+            } else {
+                container = popupWindow.getContentView();
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                container = (View) popupWindow.getContentView().getParent().getParent();
+            } else {
+                container = (View) popupWindow.getContentView().getParent();
+            }
+        }
+        Context context = popupWindow.getContentView().getContext();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
+        p.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        p.dimAmount = bgColor;
+        if (wm != null) {
+            wm.updateViewLayout(container, p);
         }
     }
 

@@ -28,15 +28,13 @@ public class CustomPopupWindow implements OnDialogDismissListener {
     private Context mContext;
     private PopupWindow mWindow;
     private static boolean IsShow;
-    private float bgk_color_depth = 0.4f;
+    private float bgk_color_depth = 0.6f;
 
     public CustomPopupWindow(Context context) {
         mContext = context;
     }
 
     public void dismiss() {
-//        GradientDrawable tagBg = (GradientDrawable) mContext.getResources().getDrawable(R.drawable.shape_dialog_confirm_bgk);
-//        tagBg.setColor(mContext.getResources().getColor(R.color.social_app_main_color));
         if (mWindow != null && !checkActivity()) {
             mWindow.dismiss();
         }
@@ -71,7 +69,7 @@ public class CustomPopupWindow implements OnDialogDismissListener {
                     onDialogDismissListener.onDismiss();
                 }
                 IsShow = false;
-                doBackgroundAni(false);
+//                doBackgroundAni(false);
             }
         });
         try {
@@ -94,11 +92,11 @@ public class CustomPopupWindow implements OnDialogDismissListener {
     private void doBackgroundAni(boolean isIn) {
         ValueAnimator valueAni = null;
         if (isIn) {
-            valueAni = ObjectAnimator.ofFloat(1f, bgk_color_depth);
+            valueAni = ObjectAnimator.ofFloat(0f, bgk_color_depth);
             valueAni.setDuration(300);
         } else {
-            valueAni = ObjectAnimator.ofFloat(bgk_color_depth, 1.0f);
-            valueAni.setDuration(400);
+            valueAni = ObjectAnimator.ofFloat(bgk_color_depth, 0f);
+            valueAni.setDuration(300);
         }
 
         valueAni.setInterpolator(new LinearInterpolator());
@@ -106,7 +104,7 @@ public class CustomPopupWindow implements OnDialogDismissListener {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float value = (float) animation.getAnimatedValue();
-                Utils.darkenBackground(value, mContext);
+                Utils.darkenBackground(value, mWindow);
             }
         });
         valueAni.start();
