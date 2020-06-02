@@ -7,6 +7,7 @@ import com.pomelo.pudding.mvp.bean.DailyInfo;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -77,5 +78,19 @@ public interface ApiService {
     @Multipart
     @POST("login")
     Observable<ResponseBody> loginV4(@PartMap Map<String, Object> map);
+
+    /**
+     * 使用JSON构造参数并提交时使用该方法进行post请求
+     */
+    @Multipart
+    @POST(ApiHelper.GET_DAILY)
+    Observable<BaseModel<Object>> postTest(@PartMap Map<String, RequestBody> requestMap);
+
+
+    /**
+     * 使用JSON构造参数并提交时使用该方法进行get请求
+     */
+    @GET(ApiHelper.GET_DAILY)
+    Observable<BaseModel<Object>> getTest(@Query("req") String req);
 
 }
