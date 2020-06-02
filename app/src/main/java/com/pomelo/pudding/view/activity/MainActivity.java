@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,9 +13,11 @@ import com.pomelo.pudding.R;
 import com.pomelo.pudding.mvp.bean.DailyInfo;
 import com.pomelo.pudding.mvp.DailyContract;
 import com.pomelo.pudding.mvp.DailyPresenter;
+import com.pomelo.pudding.pickerview.DatePickerView;
 import com.pomelo.pudding.ui.widget.BottomPopupWindow;
 import com.pomelo.pudding.ui.widget.CustomFlowLayout;
 import com.pomelo.pudding.utils.Configure;
+import com.pomelo.pudding.view.utils.CustomPopupWindow;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, DailyContract.UserInfoView {
 
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView iv;
     private CustomFlowLayout mFlowLayout;
     private DailyPresenter mPresenter;
+    private Button button;
 
     private String[] datas = new String[]{
             "奥利奥", "奥利奥奥利奥", "蒙娜丽莎", "蒙娜丽莎的微笑", "向日葵"
@@ -45,11 +49,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFlowLayout = findViewById(R.id.flowLayout);
         tv = findViewById(R.id.tv);
         iv = findViewById(R.id.iv);
+        button = findViewById(R.id.button);
     }
 
     private void initListener() {
         iv.setOnClickListener(this);
         tv.setOnClickListener(this);
+        button.setOnClickListener(this);
     }
 
     private void initData() {
@@ -91,6 +97,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
             popupWindow.show(iv);
+        } else if (v == button) {
+            DatePickerView datePickerView = new DatePickerView(this);
+            datePickerView.setCyclic(false).setPicker(1996, 1, 1);
+            CustomPopupWindow popupWindow = new CustomPopupWindow(this);
+            datePickerView.setOnTimeSelectListener((year, month, day) -> {
+                Toast.makeText(this, year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();
+            });
+            popupWindow.show(v, datePickerView);
         }
     }
 

@@ -27,7 +27,6 @@ public class CustomPopupWindow implements OnDialogDismissListener {
 
     private Context mContext;
     private PopupWindow mWindow;
-    private static boolean IsShow;
     private float bgk_color_depth = 0.6f;
 
     public CustomPopupWindow(Context context) {
@@ -45,8 +44,7 @@ public class CustomPopupWindow implements OnDialogDismissListener {
     }
 
     public void show(final View baseLayout, View contentLayout, int aniStyle) {
-        if (IsShow || baseLayout == null || contentLayout == null || checkActivity()) return;
-        IsShow = true;
+        if (baseLayout == null || contentLayout == null || checkActivity()) return;
         mWindow = new PopupWindow(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         mWindow.setContentView(contentLayout);
         mWindow.setFocusable(true);
@@ -68,7 +66,6 @@ public class CustomPopupWindow implements OnDialogDismissListener {
                 if (onDialogDismissListener != null) {
                     onDialogDismissListener.onDismiss();
                 }
-                IsShow = false;
 //                doBackgroundAni(false);
             }
         });
@@ -93,10 +90,10 @@ public class CustomPopupWindow implements OnDialogDismissListener {
         ValueAnimator valueAni = null;
         if (isIn) {
             valueAni = ObjectAnimator.ofFloat(0f, bgk_color_depth);
-            valueAni.setDuration(300);
+            valueAni.setDuration(200);
         } else {
             valueAni = ObjectAnimator.ofFloat(bgk_color_depth, 0f);
-            valueAni.setDuration(300);
+            valueAni.setDuration(200);
         }
 
         valueAni.setInterpolator(new LinearInterpolator());
