@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.pomelo.pudding.R;
+import com.pomelo.pudding.event.SingleClick;
 import com.pomelo.pudding.event.SingleClickListener;
 import com.pomelo.pudding.mvp.bean.DailyInfo;
 import com.pomelo.pudding.mvp.DailyContract;
@@ -87,9 +88,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @SingleClick(5000)
     @Override
     public void onClick(View v) {
         if (v == iv) {
+            Log.d("youzi", "onClick: 点击了");
             mPresenter.getDaily();
         } else if (v == tv) {
             final BottomPopupWindow popupWindow = new BottomPopupWindow(this);
