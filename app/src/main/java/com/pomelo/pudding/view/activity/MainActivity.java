@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.pomelo.pudding.R;
+import com.pomelo.pudding.event.SingleClickListener;
 import com.pomelo.pudding.mvp.bean.DailyInfo;
 import com.pomelo.pudding.mvp.DailyContract;
 import com.pomelo.pudding.mvp.DailyPresenter;
@@ -55,7 +56,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initListener() {
         iv.setOnClickListener(this);
         tv.setOnClickListener(this);
-        button.setOnClickListener(this);
+        button.setOnClickListener(new SingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                DatePickerView datePickerView = new DatePickerView(MainActivity.this);
+                datePickerView.setCyclic(false).setPicker(1996, 1, 1);
+                CustomPopupWindow popupWindow = new CustomPopupWindow(MainActivity.this);
+                datePickerView.setOnTimeSelectListener((year, month, day) -> {
+                    Toast.makeText(MainActivity.this, year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();
+                });
+                popupWindow.show(v, datePickerView);
+            }
+        });
     }
 
     private void initData() {
@@ -98,13 +110,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             });
             popupWindow.show(iv);
         } else if (v == button) {
-            DatePickerView datePickerView = new DatePickerView(this);
-            datePickerView.setCyclic(false).setPicker(1996, 1, 1);
-            CustomPopupWindow popupWindow = new CustomPopupWindow(this);
-            datePickerView.setOnTimeSelectListener((year, month, day) -> {
-                Toast.makeText(this, year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();
-            });
-            popupWindow.show(v, datePickerView);
+//            DatePickerView datePickerView = new DatePickerView(this);
+//            datePickerView.setCyclic(false).setPicker(1996, 1, 1);
+//            CustomPopupWindow popupWindow = new CustomPopupWindow(this);
+//            datePickerView.setOnTimeSelectListener((year, month, day) -> {
+//                Toast.makeText(this, year + "-" + month + "-" + day, Toast.LENGTH_SHORT).show();
+//            });
+//            popupWindow.show(v, datePickerView);
         }
     }
 
