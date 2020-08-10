@@ -18,4 +18,9 @@
         <attr name="left_bottom_radius" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="IconGroupView">
+        <attr name="left_margin" format="integer" />
+        <attr name="item_size" format="integer" />
+    </declare-styleable>
+
 </resources>
