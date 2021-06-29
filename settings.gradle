@@ -1,3 +1,4 @@
+include ':magicindicator'
 include ':app'
 rootProject.name='Pudding'
 include ':mvvm'
