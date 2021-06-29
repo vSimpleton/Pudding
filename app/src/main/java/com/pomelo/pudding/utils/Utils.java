@@ -82,20 +82,6 @@ public class Utils {
         return sScreenH;
     }
 
-    /**
-     * 根据720*1280的手机适配px值
-     *
-     * @param pxSrc 720P的px
-     * @return
-     */
-    public static int getRealPixel2(int pxSrc) {
-        int pix = (int) (pxSrc * sScreenW / sRelativeScreenW);
-        if (pxSrc == 1 && pix == 0) {
-            pix = 1;
-        }
-        return pix;
-    }
-
     public static int getRealPixel(int pxSrc) {
         int pix = (int) (pxSrc * sDensity / 2.0);
         if (pxSrc == 1 && pix == 0) {
